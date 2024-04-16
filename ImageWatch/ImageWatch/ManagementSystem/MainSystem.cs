@@ -88,6 +88,29 @@ namespace ImageWatch.ManagementSystem
             });
         }
 
+        public void UpdateUIByteImage(byte[] imageData, int width, int height, int channels)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                ImageWatchViewModel.MainImage = ByteArrayToBitmapSource(imageData, width, height, channels);
+                ImageWatchViewModel.UpdateResult();
+            });
+        }
+
+        public BitmapSource ByteArrayToBitmapSource(byte[] imageData, int width, int height, int channels)
+        {
+            // 이미지의 픽셀 형식을 RGB 또는 BGR로 결정
+            PixelFormat pixelFormat = channels == 3 ? PixelFormats.Bgr24 : PixelFormats.Gray8;
+
+            // 이미지의 스트라이드 계산
+            int stride = width * (pixelFormat.BitsPerPixel / 8);
+
+            // BitmapSource 생성
+            BitmapSource bitmapSource = BitmapSource.Create(width, height, 96, 96, pixelFormat, null, imageData, stride);
+
+            return bitmapSource;
+        }
+
         public void ImageFit()
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
@@ -109,5 +132,13 @@ namespace ImageWatch.ManagementSystem
             ImageWatchViewModel.DeleteResult();
         }
 
+        public void Close()
+        {
+            //UI Draw Object 다 지움
+            ImageWatchViewModel.DeleteResult();
+
+            //Draw Object 다 지움
+            DrawObj.DeleteAllDrawObject();
+        }
     }
 }

@@ -24,11 +24,21 @@ namespace ImageWatch
             _mainSystem.ImageHeight = ImageHeight;
         }
         
+        public void Close() 
+        {
+            _mainSystem.Close();
+        }
+
         public void UpdateUIImage(BitmapSource Bitmap) 
         {
             _mainSystem.UpdateImage(Bitmap);
         }
-        
+
+        public void UpdateUIByteImage(byte[] imageData, int width, int height, int channels)
+        {
+            _mainSystem.UpdateUIByteImage(imageData, width, height, channels);
+        }
+
         public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, bool Judge)
         {
             _mainSystem.AddDrawObjectEllipse(X, Y, Width, Height, Judge);
