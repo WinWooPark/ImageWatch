@@ -3,6 +3,11 @@ using ImageWatch.Model.DrawObject;
 using ImageWatch.ManagementSystem;
 using System.Collections.ObjectModel;
 using System.Windows.Media.Imaging;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
+using System.Threading.Channels;
+using System.Windows.Media.Media3D;
+using System.Windows.Media;
 
 namespace ImageWatch.ViewModel
 {
@@ -42,13 +47,12 @@ namespace ImageWatch.ViewModel
             get { return _mainSystem.Scale; }
             set
             {
-                if (_mainSystem.Scale != value)
-                {
-                    _mainSystem.Scale = value;
-                    OnPropertyChanged(nameof(Scale));
-                    DeleteResult();
-                    UpdateResult();
-                }
+                _mainSystem.Scale = value;
+                OnPropertyChanged(nameof(Scale));
+
+                _mainSystem.CalShift(_mainSystem.Scale);
+                DeleteResult();
+                UpdateResult();   
             }
         }
         
@@ -136,34 +140,6 @@ namespace ImageWatch.ViewModel
             }
         }
 
-        public double ImageControlWidth
-        {
-            get { return _mainSystem.ImageControlWidth; }
-            set
-            {
-                if (_mainSystem.ImageControlWidth != value)
-                {
-                    _mainSystem.ImageControlWidth = value;
-                    OnPropertyChanged(nameof(ImageControlWidth));
-                    _mainSystem.CalRatio();
-                }
-            }
-        }
-
-        public double ImageControlHeight
-        {
-            get { return _mainSystem.ImageControlHeight; }
-            set
-            {
-                if (_mainSystem.ImageControlHeight != value)
-                {
-                    _mainSystem.ImageControlHeight = value;
-                    OnPropertyChanged(nameof(ImageControlHeight));
-                    _mainSystem.CalRatio();
-                }
-            }
-        }
-
         public double CanvasWidth
         {
             get { return _mainSystem.ImageControlWidth; }
@@ -190,17 +166,70 @@ namespace ImageWatch.ViewModel
             }
         }
 
+        public double GridWidth
+        {
+            get { return _mainSystem.GridControlWidth; }
+            set
+            {
+                if (_mainSystem.GridControlWidth != value)
+                {
+                    _mainSystem.GridControlWidth = value;
+                    OnPropertyChanged(nameof(GridWidth));
+                    _mainSystem.CalRatio();
+                }
+            }
+        }
+
+        public double GridHeight
+        {
+            get { return _mainSystem.GridControlHeight; }
+            set
+            {
+                if (_mainSystem.GridControlHeight != value)
+                {
+                    _mainSystem.GridControlHeight = value;
+                    OnPropertyChanged(nameof(GridHeight));
+                    _mainSystem.CalRatio();
+                }
+            }
+        }
+
+        public double GridCenterPointX
+        {
+            get { return _mainSystem.GridCenterPointX; }
+            set
+            {
+                if (_mainSystem.GridCenterPointX != value)
+                {
+                    _mainSystem.GridCenterPointX = value;
+                    OnPropertyChanged(nameof(GridCenterPointX));
+                    
+                }
+            }
+        }
+
+        public double GridCenterPointY
+        {
+            get { return _mainSystem.GridCenterPointY; }
+            set
+            {
+                if (_mainSystem.GridCenterPointY != value)
+                {
+                    _mainSystem.GridCenterPointY = value;
+                    OnPropertyChanged(nameof(GridCenterPointY));
+                    
+                }
+            }
+        }
+
         private ObservableCollection<DrawEllipse> _drawEllipse;
         public ObservableCollection<DrawEllipse> DrawEllipses
         {
             get { return _drawEllipse; }
             set
             {
-                if (_drawEllipse != value)
-                {
-                    _drawEllipse = value;
-                    OnPropertyChanged(nameof(DrawEllipses));
-                }
+                _drawEllipse = value;
+                OnPropertyChanged(nameof(DrawEllipses));   
             }
         }
 
@@ -210,11 +239,8 @@ namespace ImageWatch.ViewModel
             get { return _drawLine; }
             set
             {
-                if (_drawLine != value)
-                {
-                    _drawLine = value;
-                    OnPropertyChanged(nameof(DrawLine));
-                }
+                _drawLine = value;
+                OnPropertyChanged(nameof(DrawLine));
             }
         }
 
@@ -224,12 +250,17 @@ namespace ImageWatch.ViewModel
             get { return _drawRect; }
             set
             {
-                if (_drawRect != value)
-                {
-                    _drawRect = value;
-                    OnPropertyChanged(nameof(DrawRect));
-                }
+                _drawRect = value;
+                OnPropertyChanged(nameof(DrawRect));
             }
+        }
+
+        public void UpdateImage(BitmapSource mainImage) 
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                MainImage = mainImage;
+            });
         }
 
         public void UpdateResult()
@@ -246,9 +277,14 @@ namespace ImageWatch.ViewModel
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                DrawEllipses.Clear();
-                DrawLine.Clear();
-                DrawRect.Clear();
+                if(DrawEllipses.Count != 0)
+                    DrawEllipses.Clear();
+
+                if (DrawLine.Count != 0)
+                    DrawLine.Clear();
+
+                if (DrawRect.Count != 0)
+                    DrawRect.Clear();
             });
         }
 
@@ -267,10 +303,11 @@ namespace ImageWatch.ViewModel
         {
             Queue<DrawLine> obj = _mainSystem.DrawObj.drawLines;
 
-            foreach (DrawLine drawLines in obj)
+            foreach (DrawLine drawLines in obj) 
+            {
+                drawLines.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
                 DrawLine.Add(drawLines);
-
-
+            }
         }
 
         void UpdateRectResult()
@@ -278,9 +315,10 @@ namespace ImageWatch.ViewModel
             Queue<DrawRect> obj = _mainSystem.DrawObj.drawRects;
 
             foreach (DrawRect drawRects in obj)
+            {
+                drawRects.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
                 DrawRect.Add(drawRects);
-
-
+            }
         }
     }
 }

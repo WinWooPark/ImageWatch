@@ -9,10 +9,11 @@ namespace ImageWatch.Model.DrawObject
     {
         public DrawEllipse(){}
 
-        public DrawEllipse(Point point , Size size)
+        public DrawEllipse(Point point , Size size, SolidColorBrush color)
         {
             _originPoint = point;
             _origineEllipseSize = size;
+            _fill = color;
         }
 
         public void UpdatePosition(double Scale, double ShiftX, double ShiftY, double TranslationX, double TranslationY) 

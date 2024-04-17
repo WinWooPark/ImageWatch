@@ -1,5 +1,6 @@
 ﻿using ImageWatch.ManagementSystem;
 using ImageWatch.ViewModel;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 namespace ImageWatch
 {
@@ -29,7 +30,7 @@ namespace ImageWatch
             _mainSystem.Close();
         }
 
-        public void UpdateUIImage(BitmapSource Bitmap) 
+        public void UpdateUIImage(BitmapSource Bitmap , bool ObjectDraw = false) 
         {
             _mainSystem.UpdateImage(Bitmap);
         }
@@ -39,11 +40,21 @@ namespace ImageWatch
             _mainSystem.UpdateUIByteImage(imageData, width, height, channels);
         }
 
-        public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, bool Judge)
+        public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, SolidColorBrush Color)
         {
-            _mainSystem.AddDrawObjectEllipse(X, Y, Width, Height, Judge);
+            _mainSystem.AddDrawObjectEllipse(X, Y, Width, Height, Color);
         }
-        
+
+        public void AddDrawObjectLine(double startX, double startY, double EndX, double EndY, SolidColorBrush Color)
+        {
+            _mainSystem.AddDrawObjectLine(startX, startY, EndX, EndY, Color);
+        }
+
+        public void AddDrawObjectRect(double X, double Y, double Width, double Height, SolidColorBrush Color)
+        {
+            _mainSystem.AddDrawObjectRect(X, Y, Width, Height, Color);
+        }
+
         public void DrawAllObject()
         {
             _mainSystem.DrawAllObject();

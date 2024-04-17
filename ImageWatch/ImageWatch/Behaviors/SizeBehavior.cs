@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows;
 using ImageWatch.ManagementSystem;
 using ImageWatch.ViewModel;
+using System.Windows.Input;
 
 namespace ImageWatch.Behaviors
 {
@@ -75,6 +76,7 @@ namespace ImageWatch.Behaviors
 
         protected override void OnAttached()
         {
+            base.OnAttached();
             AssociatedObject.SizeChanged += OnSizeChanged;
         }
 
@@ -89,9 +91,99 @@ namespace ImageWatch.Behaviors
 
             ImageHeight = AssociatedObject.ActualHeight;
 
-            ImageCenterX = AssociatedObject.ActualWidth /2;
+            ImageCenterX = AssociatedObject.ActualWidth / 2;
 
-            ImageCenterY = AssociatedObject.ActualHeight /2;
+            ImageCenterY = AssociatedObject.ActualHeight / 2;
+        }
+    }
+
+    public class GridSizeBehavior : Behavior<Grid>
+    {
+        static GridSizeBehavior()
+        {
+            GridWidthProperty = DependencyProperty.RegisterAttached("GridWidth", typeof(double), typeof(GridSizeBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+            GridHeightProperty = DependencyProperty.RegisterAttached("GridHeight", typeof(double), typeof(GridSizeBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+            GridCenterXProperty = DependencyProperty.RegisterAttached("GridCenterX", typeof(double), typeof(GridSizeBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+            GridCenterYProperty = DependencyProperty.RegisterAttached("GridCenterY", typeof(double), typeof(GridSizeBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+
+        }
+
+        public static readonly DependencyProperty GridWidthProperty;
+
+        public static readonly DependencyProperty GridHeightProperty;
+
+        public static readonly DependencyProperty GridCenterXProperty;
+
+        public static readonly DependencyProperty GridCenterYProperty;
+
+        public double GridWidth
+        {
+            get
+            {
+                return (double)base.GetValue(GridWidthProperty);
+            }
+            set
+            {
+                base.SetValue(GridWidthProperty, value);
+            }
+        }
+
+        public double GridHeight
+        {
+            get
+            {
+                return (double)base.GetValue(GridHeightProperty);
+            }
+            set
+            {
+                base.SetValue(GridHeightProperty, value);
+            }
+        }
+
+        public double GridCenterX
+        {
+            get
+            {
+                return (double)base.GetValue(GridCenterXProperty);
+            }
+            set
+            {
+                base.SetValue(GridCenterXProperty, value);
+            }
+        }
+
+        public double GridCenterY
+        {
+            get
+            {
+                return (double)base.GetValue(GridCenterYProperty);
+            }
+            set
+            {
+                base.SetValue(GridCenterYProperty, value);
+            }
+        }
+
+        protected override void OnAttached()
+        {
+            base.OnAttached();
+            AssociatedObject.SizeChanged += OnSizeChanged;
+        }
+
+        protected override void OnDetaching()
+        {
+            AssociatedObject.SizeChanged -= OnSizeChanged;
+        }
+
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            GridWidth = AssociatedObject.ActualWidth;
+
+            GridHeight = AssociatedObject.ActualHeight;
+
+            //GridCenterX = AssociatedObject.ActualWidth / 2;
+
+            //GridCenterY = AssociatedObject.ActualHeight / 2;
         }
     }
 

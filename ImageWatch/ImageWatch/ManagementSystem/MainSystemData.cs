@@ -57,6 +57,34 @@ namespace ImageWatch.ManagementSystem
             set { if (_imageControlHeight != value) _imageControlHeight = value; }
         }
 
+        double _gridControlWidth;
+        public double GridControlWidth
+        {
+            get { return _gridControlWidth; }
+            set { if (_gridControlWidth != value) _gridControlWidth = value; }
+        }
+
+        double _gridControlHeight;
+        public double GridControlHeight
+        {
+            get { return _gridControlHeight; }
+            set { if (_gridControlHeight != value) _gridControlHeight = value; }
+        }
+
+        double _gridCenterPointX;
+        public double GridCenterPointX
+        {
+            get { return _gridCenterPointX; }
+            set { if (_gridCenterPointX != value) _gridCenterPointX = value; }
+        }
+
+        double _gridCenterPointY;
+        public double GridCenterPointY
+        {
+            get { return _gridCenterPointY; }
+            set { if (_gridCenterPointY != value) _gridCenterPointY = value; }
+        }
+
         double _canvasControlWidth;
         public double CanvasControlWidth
         {
