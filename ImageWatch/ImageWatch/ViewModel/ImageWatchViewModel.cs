@@ -263,6 +263,14 @@ namespace ImageWatch.ViewModel
             });
         }
 
+        public void UpdateImage(byte[] imageData, int width, int height, int channels)
+        {
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                MainImage = _mainSystem.ByteArrayToBitmapSource(imageData, width, height, channels);
+            });
+        }
+
         public void UpdateResult()
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>

@@ -95,8 +95,6 @@ namespace ImageWatch.ManagementSystem
 
         public void AddDrawObjectRect(double X, double Y, double Width, double Height, SolidColorBrush Color)
         {
-            
-
             System.Windows.Point point;
             System.Windows.Size size;
 
@@ -121,9 +119,9 @@ namespace ImageWatch.ManagementSystem
                 ImageWatchViewModel.UpdateResult();   
         }
 
-        public void UpdateUIByteImage(byte[] imageData, int width, int height, int channels)
+        public void UpdateUIImage(byte[] imageData, int width, int height, int channels)
         {
-            ImageWatchViewModel.UpdateImage(ByteArrayToBitmapSource(imageData, width, height, channels));
+            ImageWatchViewModel.UpdateImage(imageData, width, height, channels);
             ImageWatchViewModel.UpdateResult();   
         }
 

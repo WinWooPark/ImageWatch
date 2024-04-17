@@ -35,9 +35,9 @@ namespace ImageWatch
             _mainSystem.UpdateImage(Bitmap);
         }
 
-        public void UpdateUIByteImage(byte[] imageData, int width, int height, int channels)
+        public void UpdateUIImage(byte[] imageData, int width, int height, int channels)
         {
-            _mainSystem.UpdateUIByteImage(imageData, width, height, channels);
+            _mainSystem.UpdateUIImage(imageData, width, height, channels);
         }
 
         public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, SolidColorBrush Color)
