@@ -170,7 +170,7 @@ namespace ImageWatch.ManagementSystem
             DrawObj.DeleteAllDrawObject();
         }
 
-        public void RightMouseButtomEvent() 
+        public void MouseRightButtomEvent() 
         {
             if (!MouseRightFlag) return;
 

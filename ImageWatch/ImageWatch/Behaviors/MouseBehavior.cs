@@ -4,6 +4,7 @@ using System.Windows;
 using ImageWatch.ManagementSystem;
 using ImageWatch.Define;
 using ImageWatch.ViewModel;
+using System.Windows.Input;
 
 
 namespace ImageWatch.Behaviors
@@ -12,6 +13,8 @@ namespace ImageWatch.Behaviors
     {
         System.Windows.Point _startPoint;
         System.Windows.Point _currentPoint;
+
+        const int DoubleClick = 2;
 
         bool _isLMouseMove;
 
@@ -27,6 +30,8 @@ namespace ImageWatch.Behaviors
             MouseDownYProperty = DependencyProperty.RegisterAttached("MouseDownY", typeof(double), typeof(MouseEventBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
             MouseUpXProperty = DependencyProperty.RegisterAttached("MouseUpX", typeof(double), typeof(MouseEventBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
             MouseUpYProperty = DependencyProperty.RegisterAttached("MouseUpY", typeof(double), typeof(MouseEventBehavior), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+
+            MouseRightDoubleClickProperty = DependencyProperty.Register("MouseRightDoubleClick", typeof(ICommand), typeof(MouseEventBehavior), new PropertyMetadata(null));
         }
 
         public static readonly DependencyProperty MouseMoveXProperty;
@@ -43,6 +48,20 @@ namespace ImageWatch.Behaviors
 
         public static readonly DependencyProperty MouseUpYProperty;
 
+        public static readonly DependencyProperty MouseRightDoubleClickProperty;
+
+
+        public ICommand MouseRightDoubleClick
+        {
+            get 
+            { 
+                return (ICommand)base.GetValue(MouseRightDoubleClickProperty); 
+            }
+            set 
+            {
+                base.SetValue(MouseRightDoubleClickProperty, value); 
+            }
+        }
 
         public double MouseMoveX
         {
@@ -204,12 +223,19 @@ namespace ImageWatch.Behaviors
 
         private void AssociatedObject_MouseRButtomDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            _startPoint = e.GetPosition(e.OriginalSource as IInputElement);
+            if (e.ClickCount >= DoubleClick)
+            {
+                MouseRightDoubleClick.Execute(sender);
+            }
+            else 
+            {
+                _startPoint = e.GetPosition(e.OriginalSource as IInputElement);
 
-            MouseDownX = _startPoint.X;
-            MouseDownY = _startPoint.Y;
+                MouseDownX = _startPoint.X;
+                MouseDownY = _startPoint.Y;
 
-            _isRMouseMove = true;
+                _isRMouseMove = true;
+            }
         }
 
         private void AssociatedObject_MouseRButtomUp(object sender, System.Windows.Input.MouseButtonEventArgs e)

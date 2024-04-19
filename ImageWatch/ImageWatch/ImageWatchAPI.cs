@@ -80,7 +80,7 @@ namespace ImageWatch
             _mainSystem.ImageFit();
         }
 
-        public void SetRightMouseButtomEvent(Action<Point,Point> mousePointCallBack) 
+        public void MouseRightButtomEvent(Action<Point,Point> mousePointCallBack) 
         {
             _mainSystem.RightMouseEvent += mousePointCallBack;
         }

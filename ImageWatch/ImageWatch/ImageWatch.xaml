@@ -36,6 +36,7 @@
                             MouseDownY="{Binding RMouseDownY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseMoveX="{Binding MouseMoveX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseMoveY="{Binding MouseMoveY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            MouseRightDoubleClick="{Binding RMouseDoubleClick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseUpX="{Binding RMouseUpX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseUpY="{Binding RMouseUpY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseWheel="{Binding Delta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />

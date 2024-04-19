@@ -26,6 +26,7 @@ namespace ImageWatch.ViewModel
             _drawEllipse = new ObservableCollection<DrawEllipse>();
             _drawLine = new ObservableCollection<DrawLine>();
             _drawRect = new ObservableCollection<DrawRect>();
+            RMouseDoubleClick = new RelayCommand(DeleteResult);
         }
 
         BitmapSource _mainImage;
@@ -259,7 +260,7 @@ namespace ImageWatch.ViewModel
                 {
                     _mainSystem.MouseUpX = value;
                     OnPropertyChanged(nameof(RMouseUpX));
-                    _mainSystem.RightMouseButtomEvent();
+                    _mainSystem.MouseRightButtomEvent();
                 }
             }
         }
@@ -273,7 +274,21 @@ namespace ImageWatch.ViewModel
                 {
                     _mainSystem.MouseUpY = value;
                     OnPropertyChanged(nameof(RMouseUpY));
-                    _mainSystem.RightMouseButtomEvent();
+                    _mainSystem.MouseRightButtomEvent();
+                }
+            }
+        }
+
+        ICommand _rMouseDoubleClick;
+        public ICommand RMouseDoubleClick 
+        {
+            get { return _rMouseDoubleClick; }
+            set 
+            {
+                if (_rMouseDoubleClick != value) 
+                {
+                    _rMouseDoubleClick = value;
+                    OnPropertyChanged(nameof(RMouseDoubleClick));
                 }
             }
         }
