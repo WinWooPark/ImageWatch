@@ -9,11 +9,12 @@ namespace ImageWatch.Model.DrawObject
     {
         public DrawEllipse(){}
 
-        public DrawEllipse(Point point , Size size, SolidColorBrush color)
+        public DrawEllipse(Point point , Size size, Color color)
         {
             _originPoint = point;
             _origineEllipseSize = size;
-            _fill = color;
+            _strokeColor = color;
+            _stroke = new SolidColorBrush(color);
         }
 
         public void UpdatePosition(double Scale, double ShiftX, double ShiftY, double TranslationX, double TranslationY) 
@@ -27,11 +28,23 @@ namespace ImageWatch.Model.DrawObject
             _ellipseSize.Height = (_origineEllipseSize.Height * Scale);
         }
 
-        SolidColorBrush _fill;
-        public SolidColorBrush Fill 
+        public DrawEllipse Clone() 
         {
-            get { return _fill; }
-            set { _fill = value; }
+            return new DrawEllipse(this.OriginPoint, this.OrigineEllipseSize, this.StrokeColor);
+        }
+
+        System.Windows.Media.Color _strokeColor;
+        public System.Windows.Media.Color StrokeColor 
+        {
+            get { return _strokeColor; }
+            set { _strokeColor = value; }
+        }
+
+        SolidColorBrush _stroke;
+        public SolidColorBrush Stroke
+        {
+            get { return _stroke; }
+            set { _stroke = value; }
         }
 
         Point _originPoint;

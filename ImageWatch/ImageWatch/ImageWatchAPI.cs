@@ -1,7 +1,9 @@
 ﻿using ImageWatch.ManagementSystem;
-using ImageWatch.ViewModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using static ImageWatch.ManagementSystem.MainSystemData;
+using Point = System.Windows.Point;
+
 namespace ImageWatch
 {
     public class ImageWatchAPI
@@ -19,10 +21,13 @@ namespace ImageWatch
             _mainSystem = ImageWatch.MainSystem;
         }
 
-        public void InitImageView(int ImageWidth, int ImageHeight) 
+        public void InitImageView(int ImageWidth, int ImageHeight,bool MouseWheelFlag = true, bool MouseLeftFlag = true, bool MouseRightFlag = false) 
         {
             _mainSystem.ImageWidth = ImageWidth;
             _mainSystem.ImageHeight = ImageHeight;
+            _mainSystem.MouseLeftFlag = MouseLeftFlag;
+            _mainSystem.MouseRightFlag = MouseRightFlag;
+            _mainSystem.MouseWheelFlag = MouseWheelFlag;
         }
         
         public void Close() 
@@ -40,17 +45,17 @@ namespace ImageWatch
             _mainSystem.UpdateUIImage(imageData, width, height, channels);
         }
 
-        public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, SolidColorBrush Color)
+        public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, Color Color)
         {
             _mainSystem.AddDrawObjectEllipse(X, Y, Width, Height, Color);
         }
 
-        public void AddDrawObjectLine(double startX, double startY, double EndX, double EndY, SolidColorBrush Color)
+        public void AddDrawObjectLine(double startX, double startY, double EndX, double EndY, Color Color)
         {
             _mainSystem.AddDrawObjectLine(startX, startY, EndX, EndY, Color);
         }
 
-        public void AddDrawObjectRect(double X, double Y, double Width, double Height, SolidColorBrush Color)
+        public void AddDrawObjectRect(double X, double Y, double Width, double Height, Color Color)
         {
             _mainSystem.AddDrawObjectRect(X, Y, Width, Height, Color);
         }
@@ -73,6 +78,11 @@ namespace ImageWatch
         public void ImageWatchFit()
         {
             _mainSystem.ImageFit();
+        }
+
+        public void SetRightMouseButtomEvent(Action<Point,Point> mousePointCallBack) 
+        {
+            _mainSystem.RightMouseEvent += mousePointCallBack;
         }
     }
 }

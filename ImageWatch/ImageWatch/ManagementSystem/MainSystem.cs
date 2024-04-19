@@ -3,9 +3,8 @@ using ImageWatch.Model.ManagementSystem;
 using ImageWatch.Define;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
-using System.Windows;
 using ImageWatch.ViewModel;
-using System.Drawing;
+using Point = System.Windows.Point;
 
 namespace ImageWatch.ManagementSystem
 {
@@ -15,6 +14,8 @@ namespace ImageWatch.ManagementSystem
         {
             _coordinateTransformations = new CoordinateTransformations();        
         }
+      
+        
 
         CoordinateTransformations _coordinateTransformations;
 
@@ -42,6 +43,8 @@ namespace ImageWatch.ManagementSystem
 
         public void ImageScaleChange(int Delta)
         {
+            if (!MouseWheelFlag) return;
+
             double scale = Scale;
 
             if (Delta > 0)
@@ -62,12 +65,13 @@ namespace ImageWatch.ManagementSystem
 
         public void ImageTranslationChange(double offsetX, double offsetY)
         {
+            if (!MouseLeftFlag) return;
             //스케일을 곱해주는 이유는 확대 되었을때 그만큼 더 움직일수 있도록 가중치를 부여 한것이다.
             ImageWatchViewModel.TranslationX += (offsetX * Scale * CommonDefine.MouseSensitivity);
             ImageWatchViewModel.TranslationY += (offsetY * Scale * CommonDefine.MouseSensitivity);
         }
 
-        public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, SolidColorBrush Color)
+        public void AddDrawObjectEllipse(double X, double Y, double Width, double Height, System.Windows.Media.Color Color)
         {
             System.Windows.Point point;
             System.Windows.Size size;
@@ -80,7 +84,7 @@ namespace ImageWatch.ManagementSystem
             DrawObj.drawEllipses.Enqueue(ellipse);
         }
 
-        public void AddDrawObjectLine(double startX, double startY, double EndX, double EndY, SolidColorBrush Color)
+        public void AddDrawObjectLine(double startX, double startY, double EndX, double EndY, System.Windows.Media.Color Color)
         {
             System.Windows.Point StartPoint;
             System.Windows.Point EndPoint;
@@ -93,7 +97,7 @@ namespace ImageWatch.ManagementSystem
             DrawObj.drawLines.Enqueue(Line);
         }
 
-        public void AddDrawObjectRect(double X, double Y, double Width, double Height, SolidColorBrush Color)
+        public void AddDrawObjectRect(double X, double Y, double Width, double Height, System.Windows.Media.Color Color)
         {
             System.Windows.Point point;
             System.Windows.Size size;
@@ -164,6 +168,19 @@ namespace ImageWatch.ManagementSystem
 
             //Draw Object 다 지움
             DrawObj.DeleteAllDrawObject();
+        }
+
+        public void RightMouseButtomEvent() 
+        {
+            if (!MouseRightFlag) return;
+
+            Point startPoint;
+            Point EndPoint;
+
+            startPoint = _coordinateTransformations.CoordinateTransformationsPoint(CommonDefine.Coordinate.eControl2Image, new System.Windows.Point(MouseDownX, MouseDownY), new System.Windows.Size(RatioX, RatioY));
+            EndPoint = _coordinateTransformations.CoordinateTransformationsPoint(CommonDefine.Coordinate.eControl2Image, new System.Windows.Point(MouseUpX, MouseUpY), new System.Windows.Size(RatioX, RatioY));
+
+            RightMouseEvent?.Invoke(startPoint, EndPoint);
         }
     }
 }

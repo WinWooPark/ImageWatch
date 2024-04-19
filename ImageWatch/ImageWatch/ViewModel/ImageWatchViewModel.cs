@@ -222,6 +222,62 @@ namespace ImageWatch.ViewModel
             }
         }
 
+        public double RMouseDownX
+        {
+            get { return _mainSystem.MouseDownX; }
+            set
+            {
+                if (_mainSystem.MouseDownX != value)
+                {
+                    _mainSystem.MouseDownX = value;
+                    OnPropertyChanged(nameof(RMouseDownX));
+
+                }
+            }
+        }
+
+        public double RMouseDownY
+        {
+            get { return _mainSystem.MouseDownY; }
+            set
+            {
+                if (_mainSystem.MouseDownY != value)
+                {
+                    _mainSystem.MouseDownY = value;
+                    OnPropertyChanged(nameof(RMouseDownY));
+
+                }
+            }
+        }
+
+        public double RMouseUpX
+        {
+            get { return _mainSystem.MouseUpX; }
+            set
+            {
+                if (_mainSystem.MouseUpX != value)
+                {
+                    _mainSystem.MouseUpX = value;
+                    OnPropertyChanged(nameof(RMouseUpX));
+                    _mainSystem.RightMouseButtomEvent();
+                }
+            }
+        }
+
+        public double RMouseUpY
+        {
+            get { return _mainSystem.MouseUpY; }
+            set
+            {
+                if (_mainSystem.MouseUpY != value)
+                {
+                    _mainSystem.MouseUpY = value;
+                    OnPropertyChanged(nameof(RMouseUpY));
+                    _mainSystem.RightMouseButtomEvent();
+                }
+            }
+        }
+
         private ObservableCollection<DrawEllipse> _drawEllipse;
         public ObservableCollection<DrawEllipse> DrawEllipses
         {
@@ -302,8 +358,9 @@ namespace ImageWatch.ViewModel
 
             foreach (DrawEllipse drawEllipse in obj)
             {
-                drawEllipse.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
-                DrawEllipses.Add(drawEllipse);
+                DrawEllipse draw = drawEllipse.Clone();
+                draw.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
+                DrawEllipses.Add(draw);
             }
         }
 
@@ -313,8 +370,9 @@ namespace ImageWatch.ViewModel
 
             foreach (DrawLine drawLines in obj) 
             {
-                drawLines.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
-                DrawLine.Add(drawLines);
+                DrawLine draw = drawLines.Clone();
+                draw.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
+                DrawLine.Add(draw);
             }
         }
 
@@ -324,8 +382,9 @@ namespace ImageWatch.ViewModel
 
             foreach (DrawRect drawRects in obj)
             {
-                drawRects.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
-                DrawRect.Add(drawRects);
+                DrawRect draw = drawRects.Clone();
+                draw.UpdatePosition(Scale, _mainSystem.ShiftWidth, _mainSystem.ShiftHeight, TranslationX, TranslationY);
+                DrawRect.Add(draw);
             }
         }
     }

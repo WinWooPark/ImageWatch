@@ -2,6 +2,7 @@
 using ImageWatch.Model.DrawObject;
 
 using Size = System.Windows.Size;
+using Point = System.Windows.Point;
 
 namespace ImageWatch.ManagementSystem
 {
@@ -27,6 +28,30 @@ namespace ImageWatch.ManagementSystem
         {
             get { return _imageWatchViewModel; }
             set { _imageWatchViewModel = value; }
+        }
+
+        public Action<Point, Point> RightMouseEvent;
+
+
+        bool _mouseLeftFlag;
+        public bool MouseLeftFlag
+        {
+            get { return _mouseLeftFlag; }
+            set { _mouseLeftFlag = value; }
+        }
+
+        bool _mouseWheelFlag;
+        public bool MouseWheelFlag
+        {
+            get { return _mouseWheelFlag; }
+            set { _mouseWheelFlag = value; }
+        }
+
+        bool _mouseRightFlag;
+        public bool MouseRightFlag
+        {
+            get { return _mouseRightFlag; }
+            set { _mouseRightFlag = value; }
         }
 
         int _imageWidth;
@@ -172,5 +197,45 @@ namespace ImageWatch.ManagementSystem
                 if (_ratioY != value) _ratioY = value;
             }
         }
+        double _rMouseDownX;
+        public double MouseDownX
+        {
+            get { return _rMouseDownX; }
+            set
+            {
+                if (_rMouseDownX != value) _rMouseDownX = value;
+            }
+        }
+
+        double _rMouseDownY;
+        public double MouseDownY
+        {
+            get { return _rMouseDownY; }
+            set
+            {
+                if (_rMouseDownY != value) _rMouseDownY = value;
+            }
+        }
+
+        double _rMouseUpX;
+        public double MouseUpX
+        {
+            get { return _rMouseUpX; }
+            set
+            {
+                if (_rMouseUpX != value) _rMouseUpX = value;
+            }
+        }
+
+        double _rMouseUpY;
+        public double MouseUpY
+        {
+            get { return _rMouseUpY; }
+            set
+            {
+                if (_rMouseUpY != value) _rMouseUpY = value;
+            }
+        }
+
     }
 }

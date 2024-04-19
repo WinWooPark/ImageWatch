@@ -8,11 +8,12 @@ namespace ImageWatch.Model.DrawObject
     {
         public DrawRect() { }
 
-        public DrawRect(Point point, Size size, SolidColorBrush color)
+        public DrawRect(Point point, Size size, Color color)
         {
             _originLeftTopPoint = point;
             _origineRectSize = size;
-            _fill = color;
+            _strokeColor = color;
+            _stroke = new SolidColorBrush(color);
         }
 
         public void UpdatePosition(double Scale, double ShiftX, double ShiftY, double TranslationX, double TranslationY)
@@ -26,11 +27,23 @@ namespace ImageWatch.Model.DrawObject
             _rectSize.Height = (_origineRectSize.Height * Scale);
         }
 
-        SolidColorBrush _fill;
-        public SolidColorBrush Fill
+        public DrawRect Clone()
         {
-            get { return _fill; }
-            set { _fill = value; }
+            return new DrawRect(this.OriginLeftTopPoint, this.OrigineRectSize, this.StrokeColor);
+        }
+
+        System.Windows.Media.Color _strokeColor;
+        public System.Windows.Media.Color StrokeColor
+        {
+            get { return _strokeColor; }
+            set { _strokeColor = value; }
+        }
+
+        SolidColorBrush _stroke;
+        public SolidColorBrush Stroke
+        {
+            get { return _stroke; }
+            set { _stroke = value; }
         }
 
         Point _originLeftTopPoint;
@@ -55,7 +68,7 @@ namespace ImageWatch.Model.DrawObject
         }
 
         Size _origineRectSize;
-        public Size OrigineEllipseSize
+        public Size OrigineRectSize
         {
             get { return _origineRectSize; }
             set { _origineRectSize = value; }

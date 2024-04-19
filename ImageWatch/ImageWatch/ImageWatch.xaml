@@ -32,8 +32,12 @@
                     <b:Interaction.Behaviors>
                         <behaviors:ImageSizeBehavior />
                         <behaviors:MouseEventBehavior
+                            MouseDownX="{Binding RMouseDownX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            MouseDownY="{Binding RMouseDownY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseMoveX="{Binding MouseMoveX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseMoveY="{Binding MouseMoveY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            MouseUpX="{Binding RMouseUpX, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            MouseUpY="{Binding RMouseUpY, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             MouseWheel="{Binding Delta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </b:Interaction.Behaviors>
 
@@ -67,7 +71,7 @@
                             <Ellipse
                                 Width="{Binding EllipseWidth}"
                                 Height="{Binding EllipseHight}"
-                                Stroke="{Binding Fill}"
+                                Stroke="{Binding Stroke}"
                                 StrokeThickness="1" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -83,7 +87,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Line
-                                Stroke="{Binding Fill}"
+                                Stroke="{Binding Stroke}"
                                 StrokeThickness="1"
                                 X1="{Binding StartPointX}"
                                 X2="{Binding EndPointX}"
@@ -111,7 +115,7 @@
                             <Rectangle
                                 Width="{Binding RectWidth}"
                                 Height="{Binding RectHight}"
-                                Stroke="{Binding Fill}"
+                                Stroke="{Binding Stroke}"
                                 StrokeThickness="1" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

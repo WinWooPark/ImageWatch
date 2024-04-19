@@ -8,11 +8,12 @@ namespace ImageWatch.Model.DrawObject
     {
         public DrawLine() { }
 
-        public DrawLine(Point StartPoint, Point EndPoint, SolidColorBrush color)
+        public DrawLine(Point StartPoint, Point EndPoint, Color color)
         {
             _originStartPoint = StartPoint;
             _originEndPoint = EndPoint;
-            _fill = color;
+            _strokeColor = color;
+            _stroke = new SolidColorBrush(color);
         }
 
         public void UpdatePosition(double Scale, double ShiftX, double ShiftY, double TranslationX, double TranslationY)
@@ -26,11 +27,23 @@ namespace ImageWatch.Model.DrawObject
             _endPoint.Y = (_originEndPoint.Y * Scale) + ShiftY + TranslationY;
         }
 
-        SolidColorBrush _fill;
-        public SolidColorBrush Fill
+        public DrawLine Clone()
         {
-            get { return _fill; }
-            set { _fill = value; }
+            return new DrawLine(this.StartPoint, this.EndPoint, this.StrokeColor);
+        }
+
+        System.Windows.Media.Color _strokeColor;
+        public System.Windows.Media.Color StrokeColor
+        {
+            get { return _strokeColor; }
+            set { _strokeColor = value; }
+        }
+
+        SolidColorBrush _stroke;
+        public SolidColorBrush Stroke
+        {
+            get { return _stroke; }
+            set { _stroke = value; }
         }
 
         Point _originStartPoint;
