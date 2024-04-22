@@ -12,7 +12,10 @@ namespace ImageWatch.ManagementSystem
     {
         public MainSystem()
         {
-            _coordinateTransformations = new CoordinateTransformations();        
+            _coordinateTransformations = new CoordinateTransformations();
+            TranslationX = 0;
+            TranslationX = 0;
+            Scale = 1;
         }
       
         
@@ -37,8 +40,11 @@ namespace ImageWatch.ManagementSystem
 
         public void CalShift(double scale)
         {
-            ShiftWidth = ((CanvasControlWidth - (ImageControlWidth * scale)) / 2);
-            ShiftHeight = ((CanvasControlHeight - (ImageControlHeight * scale)) / 2);
+            //ShiftWidth = ((CanvasControlWidth - (ImageControlWidth * scale)) / 2);
+            //ShiftHeight = ((CanvasControlHeight - (ImageControlHeight * scale)) / 2);
+
+            ShiftWidth = ((GridControlWidth - (ImageControlWidth * scale)) / 2);
+            ShiftHeight = ((GridControlHeight - (ImageControlHeight * scale)) / 2);
         }
 
         public void ImageScaleChange(int Delta)
