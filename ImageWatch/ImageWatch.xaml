@@ -50,7 +50,7 @@
                     </Image.RenderTransform>
                 </Image>
 
-                <ItemsControl ItemsSource="{Binding DrawEllipses, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl ItemsSource="{Binding DrawEllipses}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas>
@@ -70,7 +70,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Ellipse
-                                Width="{Binding EllipseWidth, UpdateSourceTrigger=PropertyChanged}"
+                                Width="{Binding EllipseWidth}"
                                 Height="{Binding EllipseHight}"
                                 Stroke="{Binding Stroke}"
                                 StrokeThickness="1" />
@@ -98,7 +98,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <ItemsControl ItemsSource="{Binding DrawRect, UpdateSourceTrigger=PropertyChanged}">
+                <ItemsControl ItemsSource="{Binding DrawRect}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas />
