@@ -352,6 +352,10 @@ namespace ImageWatch.ViewModel
             });
         }
 
+        public void DoubleClickDeleteResult() 
+        {
+            _mainSystem.DeleteAllDrawObject();
+        }
         public void DeleteResult()
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
@@ -371,6 +375,8 @@ namespace ImageWatch.ViewModel
         {
             Queue<DrawEllipse> obj = _mainSystem.DrawObj.drawEllipses;
 
+            if (obj.Count == 0) return;
+
             foreach (DrawEllipse drawEllipse in obj)
             {
                 DrawEllipse draw = drawEllipse.Clone();
@@ -383,6 +389,8 @@ namespace ImageWatch.ViewModel
         {
             Queue<DrawLine> obj = _mainSystem.DrawObj.drawLines;
 
+            if (obj.Count == 0) return;
+
             foreach (DrawLine drawLines in obj) 
             {
                 DrawLine draw = drawLines.Clone();
@@ -394,6 +402,8 @@ namespace ImageWatch.ViewModel
         void UpdateRectResult()
         {
             Queue<DrawRect> obj = _mainSystem.DrawObj.drawRects;
+
+            if (obj.Count == 0) return;
 
             foreach (DrawRect drawRects in obj)
             {
