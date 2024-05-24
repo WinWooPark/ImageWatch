@@ -14,13 +14,13 @@
 
         public void DeleteAllDrawObject() 
         {
-            if(drawEllipses.Count != 0)
+            //if(drawEllipses.Count != 0)
                 drawEllipses.Clear();
 
-            if (drawLines.Count != 0)
+            //if (drawLines.Count != 0)
                 drawLines.Clear();
 
-            if (drawRects.Count != 0)
+            //if (drawRects.Count != 0)
                 drawRects.Clear();
         }
     }

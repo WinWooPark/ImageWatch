@@ -2,7 +2,7 @@ using ImageWatch.ManagementSystem;
 using ImageWatch.ViewModel;
 using System.Windows.Controls;
 
-namespace ImageWatch
+namespace ImageWatchAPI
 {
     /// <summary>
     /// Interaction logic for UserControl1.xaml

@@ -17,8 +17,6 @@ namespace ImageWatch.ManagementSystem
             TranslationX = 0;
             Scale = 1;
         }
-      
-        
 
         CoordinateTransformations _coordinateTransformations;
 
@@ -85,6 +83,12 @@ namespace ImageWatch.ManagementSystem
             point = _coordinateTransformations.CoordinateTransformationsPoint(CommonDefine.Coordinate.eImage2Control, new System.Windows.Point(X, Y), new System.Windows.Size(RatioX, RatioY));
             size = _coordinateTransformations.CoordinateTransformationsLength(CommonDefine.Coordinate.eImage2Control, new System.Windows.Size(Width, Height), new System.Windows.Size(RatioX, RatioY));
 
+            double halfSizeX = size.Width / 2;
+            double halfSizeY = size.Height / 2;
+
+            point.X -= halfSizeX;
+            point.Y -= halfSizeY;
+
             DrawEllipse ellipse = new DrawEllipse(point, size , Color);
 
             DrawObj.drawEllipses.Enqueue(ellipse);
@@ -131,6 +135,11 @@ namespace ImageWatch.ManagementSystem
 
         public void UpdateUIImage(byte[] imageData, int width, int height, int channels)
         {
+            ImageWidth = width;
+            ImageHeight = height;
+
+            CalRatio();
+
             ImageWatchViewModel.UpdateImage(imageData, width, height, channels);
             ImageWatchViewModel.UpdateResult();   
         }

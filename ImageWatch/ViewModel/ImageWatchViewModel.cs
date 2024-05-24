@@ -356,13 +356,13 @@ namespace ImageWatch.ViewModel
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                if(DrawEllipses.Count != 0)
+                //if(DrawEllipses.Count != 0)
                     DrawEllipses.Clear();
 
-                if (DrawLine.Count != 0)
+                //if (DrawLine.Count != 0)
                     DrawLine.Clear();
 
-                if (DrawRect.Count != 0)
+                //if (DrawRect.Count != 0)
                     DrawRect.Clear();
             });
         }

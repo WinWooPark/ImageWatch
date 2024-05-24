@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 using static ImageWatch.ManagementSystem.MainSystemData;
 using Point = System.Windows.Point;
 
-namespace ImageWatch
+namespace ImageWatchAPI
 {
     public class ImageWatchAPI
     {
@@ -29,7 +29,15 @@ namespace ImageWatch
             _mainSystem.MouseRightFlag = MouseRightFlag;
             _mainSystem.MouseWheelFlag = MouseWheelFlag;
         }
-        
+
+        public void ChageImageSize(int ImageWidth, int ImageHeight) 
+        {
+            _mainSystem.ImageWidth = ImageWidth;
+            _mainSystem.ImageHeight = ImageHeight;
+
+            _mainSystem.CalRatio();
+        }
+
         public void Close() 
         {
             _mainSystem.Close();
